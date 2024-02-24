@@ -1,22 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<?import javafx.geometry.Insets?>
-<BorderPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.example.ims.scene.MainView"
-            prefHeight="400.0" prefWidth="600.0">
+<BorderPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ims.scene.MainView">
 
     <top>
         <!-- Button bar -->
-        <HBox prefHeight="50.0" prefWidth="600.0" alignment="CENTER" BorderPane.alignment="CENTER">
+        <HBox alignment="CENTER" prefHeight="50.0" prefWidth="600.0" BorderPane.alignment="CENTER">
             <children>
-                <Button alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" prefHeight="25.0" prefWidth="94.0" text="Product" textAlignment="CENTER" onAction="#loadProductScene"/>
-                <Button alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" text="Supplier" textAlignment="CENTER" onAction="#loadSupplierScene"/>
-                <Button alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" prefHeight="25.0" text="Order Item" textAlignment="CENTER" onAction="#loadOrderItemScene"/>
-                <Button alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" text="Order Made" textAlignment="CENTER" onAction="#loadOrderMadeScene"/>
+                <Button alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" onAction="#loadProductScene"
+                        prefHeight="25.0" prefWidth="94.0" text="Product" textAlignment="CENTER"/>
+                <Button alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" onAction="#loadSupplierScene"
+                        text="Supplier" textAlignment="CENTER"/>
+                <Button alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" onAction="#loadOrderItemScene"
+                        prefHeight="25.0" text="Order Item" textAlignment="CENTER"/>
+                <Button alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" onAction="#loadOrderMadeScene"
+                        text="Order Made" textAlignment="CENTER"/>
             </children>
             <padding>
                 <Insets left="10.0" right="10.0"/>
@@ -24,10 +26,16 @@
         </HBox>
     </top>
 
-    <StackPane fx:id="contentPane">
-        <!-- Content will be loaded dynamically here -->
-    </StackPane>
-
+    <center>
+        <StackPane fx:id="contentPane" prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <!-- Dynamically loaded scenes -->
+            <!-- Also, main-view view-->
+            <VBox alignment="CENTER" style="-fx-background-color: lightblue;">
+                <Label text="Welcome" style="-fx-font-size: 24; -fx-font-weight: bold;" />
+                <Label text="Description of what the application does" style="-fx-font-size: 14" alignment="CENTER" />
+            </VBox>
+        </StackPane>
+    </center>
 
 
 </BorderPane>
