@@ -13,7 +13,7 @@
         <!-- Button bar -->
         <HBox prefHeight="50.0" prefWidth="600.0" alignment="CENTER" BorderPane.alignment="CENTER">
             <children>
-                <Button alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" prefHeight="25.0" prefWidth="94.0" text="Product" textAlignment="CENTER" />
+                <Button alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" prefHeight="25.0" prefWidth="94.0" text="Product" textAlignment="CENTER" onAction="#loadProductScene" />
                 <Button mnemonicParsing="false" text="Supplier" />
                 <Button mnemonicParsing="false" prefHeight="25.0" text="Order Item" />
                 <Button mnemonicParsing="false" text="Order Made" />
@@ -24,9 +24,8 @@
         </HBox>
     </top>
 
-    <center>
-        <!-- Placeholder for changing content -->
-        <StackPane fx:id="contentPane" />
-    </center>
+    <StackPane fx:id="contentPane">
+        <!-- Content will be loaded dynamically here -->
+    </StackPane>
 
 </BorderPane>
