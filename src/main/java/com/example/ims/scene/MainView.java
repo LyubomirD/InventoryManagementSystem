@@ -1,5 +1,6 @@
 package com.example.ims.scene;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
@@ -13,18 +14,37 @@ public class MainView {
     @FXML
     private StackPane contentPane;
 
-    private boolean productViewLoaded = false;
+    private boolean viewLoaded = false;
+
+    @FXML
+    private void loadScene(String fxmlPath) {
+        try {
+            AnchorPane view = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(fxmlPath)));
+            contentPane.getChildren().setAll(view);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
 
     @FXML
     private void loadProductScene() {
-        if (!productViewLoaded) {
-            try {
-                AnchorPane productView = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/example/ims/product-view.fxml")));
-                contentPane.getChildren().setAll(productView);
-                productViewLoaded = true;
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+        loadScene("/com/example/ims/product-view.fxml");
+    }
+
+    @FXML
+    private void loadSupplierScene() {
+        loadScene("/com/example/ims/supplier-view.fxml");
+    }
+
+    @FXML
+    private void loadOrderItemScene() {
+        loadScene("/com/example/ims/order-item-view.fxml");
+    }
+
+    @FXML
+    public void loadOrderMadeScene() {
+        loadScene("/com/example/ims/order-made-view.fxml");
     }
 }
