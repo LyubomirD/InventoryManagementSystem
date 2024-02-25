@@ -9,21 +9,12 @@ public class Product {
     private Double price;
 
     public Product(String name, String description, Double quantityOfStock, Double price) {
-        this.product_id = -1;
         this.name = name;
         this.description = description;
         this.quantityOfStock = quantityOfStock;
         this.price = price;
     }
-
-    public Product(Integer product_id, String name, String description, Double quantityOfStock, Double price) {
-        this.product_id = product_id;
-        this.name = name;
-        this.description = description;
-        this.quantityOfStock = quantityOfStock;
-        this.price = price;
-    }
-
+    
     public Integer getProduct_id() {
         return product_id;
     }

@@ -23,6 +23,7 @@
                     <Label text="Price: " />
                     <TextField fx:id="productPrice" alignment="CENTER_RIGHT" />
                 </HBox>
+                <Button fx:id="productClear" mnemonicParsing="false" text="Clear"/>
             </VBox>
 
             <HBox alignment="CENTER">

@@ -36,6 +36,9 @@ public class ProductView implements Initializable {
     private Button productUpdate;
     @FXML
     private Button productDelete;
+    @FXML
+    private Button productClear;
+
 
     @FXML
     private TableView<Product> productTableView;
@@ -52,9 +55,17 @@ public class ProductView implements Initializable {
 
     private ObservableList<Product> productList = FXCollections.observableArrayList();
 
+    private final DatabaseConnection databaseConnection;
+
+    public ProductView() {
+        databaseConnection = new DatabaseConnection();
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         productAdd.setOnAction(this::handleButtonClickAdd);
+        productClear.setOnAction(this::clearTextFields);
+        selectRowInTheTableView();
 
         productColumnId.setCellValueFactory(new PropertyValueFactory<>("product_id"));
         productColumnName.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -65,15 +76,14 @@ public class ProductView implements Initializable {
         loadDataFromDatabase();
     }
 
-    @FXML
+
     private void handleButtonClickAdd(ActionEvent event) {
-        System.out.println("Button is clicked");
+        System.out.println("Add Button is clicked");
         Product product = new Product(productName.getText(), productDescription.getText(), Double.parseDouble(productQuantityOfStock.getText()), Double.parseDouble(productPrice.getText()));
 
         productList.add(product);
         productTableView.setItems(productList);
 
-        DatabaseConnection databaseConnection = new DatabaseConnection();
         ProductDTO productDTO = new ProductDTO(databaseConnection);
         try {
             productDTO.addProduct(product);
@@ -83,8 +93,34 @@ public class ProductView implements Initializable {
         }
     }
 
+
+    private void selectRowInTheTableView() {
+        productTableView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+
+            if (newSelection == null) {
+                clearTextFields();
+            }
+
+            productName.setText(newSelection.getName());
+            productDescription.setText(newSelection.getDescription());
+            productQuantityOfStock.setText(String.valueOf(newSelection.getQuantityOfStock()));
+            productPrice.setText(String.valueOf(newSelection.getPrice()));
+        });
+    }
+
+    private void clearTextFields(ActionEvent event) {
+        clearTextFields();
+    }
+
+    private void clearTextFields() {
+        productName.clear();
+        productDescription.clear();
+        productQuantityOfStock.clear();
+        productPrice.clear();
+    }
+
+
     private void loadDataFromDatabase() {
-        DatabaseConnection databaseConnection = new DatabaseConnection();
         ProductDTO productDTO = new ProductDTO(databaseConnection);
         try {
             List<Product> products = productDTO.getAllProducts();
