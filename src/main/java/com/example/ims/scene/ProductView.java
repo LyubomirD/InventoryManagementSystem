@@ -8,10 +8,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.net.URL;
@@ -53,8 +50,7 @@ public class ProductView implements Initializable {
     @FXML
     private TableColumn<Product, Double> productColumnPrice;
 
-    private ObservableList<Product> productList = FXCollections.observableArrayList();
-
+    private final ObservableList<Product> productList = FXCollections.observableArrayList();
     private final DatabaseConnection databaseConnection;
 
     public ProductView() {
@@ -64,6 +60,8 @@ public class ProductView implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         productAdd.setOnAction(this::handleButtonClickAdd);
+        productUpdate.setOnAction(this::handleButtonClickUpdate);
+        productDelete.setOnAction(this::handleButtonClickDelete);
         productClear.setOnAction(this::clearTextFields);
         selectRowInTheTableView();
 
@@ -79,32 +77,76 @@ public class ProductView implements Initializable {
 
     private void handleButtonClickAdd(ActionEvent event) {
         System.out.println("Add Button is clicked");
-        Product product = new Product(productName.getText(), productDescription.getText(), Double.parseDouble(productQuantityOfStock.getText()), Double.parseDouble(productPrice.getText()));
+        Product newProduct = new Product(productName.getText(), productDescription.getText(), Double.parseDouble(productQuantityOfStock.getText()), Double.parseDouble(productPrice.getText()));
 
-        productList.add(product);
+        productList.add(newProduct);
         productTableView.setItems(productList);
 
         ProductDTO productDTO = new ProductDTO(databaseConnection);
         try {
-            productDTO.addProduct(product);
+            productDTO.addProduct(newProduct);
             System.out.println("Product added to database successfully.");
         } catch (SQLException e) {
-            System.err.println("Error adding product to database: " + e.getMessage());
+            System.err.println("Error adding newProduct to database: " + e.getMessage());
         }
     }
 
+    private void handleButtonClickUpdate(ActionEvent event) {
+        System.out.println("Update Button is clicked");
+
+        Product selectedProduct = productTableView.getSelectionModel().getSelectedItem();
+
+        if (selectedProduct == null) {
+            return;
+        }
+
+        int productIdentificationNumber = selectedProduct.getProduct_id();
+
+        Product updatedProduct = new Product(productName.getText(), productDescription.getText(), Double.parseDouble(productQuantityOfStock.getText()), Double.parseDouble(productPrice.getText()));
+        ProductDTO productDTO = new ProductDTO(databaseConnection);
+        try {
+            productDTO.updateProduct(updatedProduct, productIdentificationNumber);
+            System.out.println("Product updated successfully.");
+            int selectedIndex = productTableView.getSelectionModel().getSelectedIndex();
+            productList.set(selectedIndex, updatedProduct);
+        } catch (SQLException e) {
+            System.err.println("Error updating product: " + e.getMessage());
+        }
+    }
+
+    private void handleButtonClickDelete(ActionEvent event) {
+        System.out.println("Delete Button is clicked");
+
+        Product selectedProduct = productTableView.getSelectionModel().getSelectedItem();
+
+        if (selectedProduct == null) {
+            System.out.println("No product selected for deletion.");
+            return;
+        }
+
+        int productIdentificationNumber = selectedProduct.getProduct_id();
+
+        ProductDTO productDTO = new ProductDTO(databaseConnection);
+        try {
+            productDTO.deleteProduct(productIdentificationNumber);
+            productList.remove(selectedProduct);
+            System.out.println("Product deleted successfully.");
+        } catch (SQLException e) {
+            System.err.println("Error deleting product: " + e.getMessage());
+        }
+    }
 
     private void selectRowInTheTableView() {
         productTableView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
 
-            if (newSelection == null) {
+            if (newSelection != null) {
+                productName.setText(newSelection.getName());
+                productDescription.setText(newSelection.getDescription());
+                productQuantityOfStock.setText(String.valueOf(newSelection.getQuantityOfStock()));
+                productPrice.setText(String.valueOf(newSelection.getPrice()));
+            } else {
                 clearTextFields();
             }
-
-            productName.setText(newSelection.getName());
-            productDescription.setText(newSelection.getDescription());
-            productQuantityOfStock.setText(String.valueOf(newSelection.getQuantityOfStock()));
-            productPrice.setText(String.valueOf(newSelection.getPrice()));
         });
     }
 
@@ -131,3 +173,23 @@ public class ProductView implements Initializable {
         }
     }
 }
+
+
+/*
+
+    private Integer getSelectedRowProductId() {
+        Product selectedProduct = productTableView.getSelectionModel().getSelectedItem();
+
+        if (selectedProduct == null) {
+            clearTextFields();
+        }
+
+        productName.setText(selectedProduct.getName());
+        productDescription.setText(selectedProduct.getDescription());
+        productQuantityOfStock.setText(String.valueOf(selectedProduct.getQuantityOfStock()));
+        productPrice.setText(String.valueOf(selectedProduct.getPrice()));
+
+        return selectedProduct.getProduct_id();
+    }
+
+ */

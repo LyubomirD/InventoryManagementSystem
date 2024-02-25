@@ -9,7 +9,6 @@
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/ims/dto/ProductDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/ims/dto/ProductDTO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/ims/models/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/ims/models/Product.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/ims/scene/ProductView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/ims/scene/ProductView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/ims/product-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/ims/product-view.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

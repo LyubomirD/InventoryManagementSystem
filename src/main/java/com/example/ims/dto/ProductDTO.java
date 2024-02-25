@@ -68,18 +68,20 @@ public class ProductDTO {
     }
 
 
-    public void updateProduct(Product selectedProduct) throws SQLException {
+    public void updateProduct(Product updatedProduct, Integer productIdentificationNumber) throws SQLException {
         String query = "UPDATE products SET name=?, description=?, quantity_of_stock=?, price=? WHERE product_id=?";
 
         try (Connection conn = databaseConnection.getConnection();
              PreparedStatement statement = conn.prepareStatement(query)) {
-            statement.setString(1, selectedProduct.getName());
-            statement.setString(2, selectedProduct.getDescription());
-            statement.setDouble(3, selectedProduct.getQuantityOfStock());
-            statement.setDouble(4, selectedProduct.getPrice());
+            statement.setString(1, updatedProduct.getName());
+            statement.setString(2, updatedProduct.getDescription());
+            statement.setDouble(3, updatedProduct.getQuantityOfStock());
+            statement.setDouble(4, updatedProduct.getPrice());
+            statement.setInt(5, productIdentificationNumber);
 
             int rowsUpdated = statement.executeUpdate();
             if (rowsUpdated > 0) {
+                updatedProduct.setProduct_id(productIdentificationNumber);
                 System.out.println("Product updated successfully.");
             } else {
                 System.err.println("Failed to update product.");
@@ -87,4 +89,19 @@ public class ProductDTO {
         }
     }
 
+    public void deleteProduct(int productIdentificationNumber) throws SQLException {
+        String query = "DELETE FROM products WHERE product_id=?";
+
+        try (Connection conn = databaseConnection.getConnection();
+             PreparedStatement statement = conn.prepareStatement(query)) {
+            statement.setInt(1, productIdentificationNumber);
+
+            int rowsUpdated = statement.executeUpdate();
+            if (rowsUpdated > 0) {
+                System.out.println("Product deleted successfully.");
+            } else {
+                System.err.println("Failed to delete product.");
+            }
+        }
+    }
 }

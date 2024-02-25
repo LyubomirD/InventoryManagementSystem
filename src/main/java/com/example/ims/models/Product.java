@@ -14,7 +14,7 @@ public class Product {
         this.quantityOfStock = quantityOfStock;
         this.price = price;
     }
-    
+
     public Integer getProduct_id() {
         return product_id;
     }
