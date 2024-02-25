@@ -3,9 +3,47 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
+<AnchorPane prefHeight="150.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ims.scene.ProductView">
+    <children>
+        <VBox>
+            <VBox>
+                <HBox>
+                    <Label text="Product name: " />
+                    <TextField fx:id="productName" alignment="CENTER_RIGHT" />
+                </HBox>
+                <HBox>
+                    <Label text="Short description: " />
+                    <TextField fx:id="productDescription" alignment="CENTER_RIGHT" />
+                </HBox>
+                <HBox>
+                    <Label text="Quantity of stock: " />
+                    <TextField fx:id="productQuantityOfStock" alignment="CENTER_RIGHT" />
+                </HBox>
+                <HBox>
+                    <Label text="Price: " />
+                    <TextField fx:id="productPrice" alignment="CENTER_RIGHT" />
+                </HBox>
+            </VBox>
 
-<AnchorPane xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ims.scene.ProductView">
-   <children>
-      <Label layoutX="216.0" layoutY="183.0" prefHeight="64.0" prefWidth="159.0" text="Product" />
-   </children>
+            <HBox alignment="CENTER">
+                <ButtonBar>
+                    <buttons>
+                        <Button fx:id="productAdd" mnemonicParsing="false" text="Add" />
+                        <Button fx:id="productUpdate" mnemonicParsing="false" text="Update" />
+                        <Button fx:id="productDelete" mnemonicParsing="false" text="Delete" />
+                    </buttons>
+                </ButtonBar>
+            </HBox>
+
+            <TableView fx:id="productTableView" prefHeight="400.0" prefWidth="407.0">
+                <columns>
+                    <TableColumn fx:id="productColumnId" prefWidth="75.0" text="Product_ID" />
+                    <TableColumn fx:id="productColumnName" prefWidth="75.0" text="Name" />
+                    <TableColumn fx:id="productColumnDesc" prefWidth="75.0" text="Short_Desc" />
+                    <TableColumn fx:id="productColumnQuantity" prefWidth="75.0" text="Quantity_Of_Stock" />
+                    <TableColumn fx:id="productColumnPrice" prefWidth="75.0" text="Price" />
+                </columns>
+            </TableView>
+        </VBox>
+    </children>
 </AnchorPane>

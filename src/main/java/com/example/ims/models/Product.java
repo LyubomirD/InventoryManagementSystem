@@ -2,27 +2,35 @@ package com.example.ims.models;
 
 public class Product {
 
-    private Long product_id;
+    private Integer product_id;
     private String name;
     private String description;
-    private double quantityOfStock;
-    private double price;
+    private Double quantityOfStock;
+    private Double price;
 
-    public Product(String name, String description, double quantityOfStock, double price) {
+    public Product(String name, String description, Double quantityOfStock, Double price) {
+        this.product_id = -1;
         this.name = name;
         this.description = description;
         this.quantityOfStock = quantityOfStock;
         this.price = price;
     }
 
-    public Long getProduct_id() {
+    public Product(Integer product_id, String name, String description, Double quantityOfStock, Double price) {
+        this.product_id = product_id;
+        this.name = name;
+        this.description = description;
+        this.quantityOfStock = quantityOfStock;
+        this.price = price;
+    }
+
+    public Integer getProduct_id() {
         return product_id;
     }
 
-    public void setProduct_id(Long product_id) {
+    public void setProduct_id(Integer product_id) {
         this.product_id = product_id;
     }
-
     public String getName() {
         return name;
     }
@@ -39,7 +47,7 @@ public class Product {
         this.description = description;
     }
 
-    public double getQuantityOfStock() {
+    public Double getQuantityOfStock() {
         return quantityOfStock;
     }
 
@@ -47,7 +55,7 @@ public class Product {
         this.quantityOfStock = quantityOfStock;
     }
 
-    public double getPrice() {
+    public Double getPrice() {
         return price;
     }
 

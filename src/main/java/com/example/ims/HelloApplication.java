@@ -21,35 +21,3 @@ public class HelloApplication extends Application{
         launch();
     }
 }
-
-
-
-
-
-
-
-
-
-
-/*
-    public static void main(String[] args) {
-//        launch();
-
-        DatabaseConnection connection = new DatabaseConnection();
-
-        // Create a ProductDTO instance
-        ProductDTO productDTO = new ProductDTO(connection);
-
-        // Create a Product object with sample data
-        Product product = new Product("Test1", "Description1", 11.23, 21);
-
-        try {
-            // Add the product to the database
-            productDTO.addProduct(product);
-            System.out.println("Product added successfully!");
-        } catch (SQLException e) {
-            System.err.println("Error adding product: " + e.getMessage());
-        }
-    }
-
- */
