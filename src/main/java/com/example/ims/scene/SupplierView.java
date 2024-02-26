@@ -118,7 +118,7 @@ public class SupplierView implements Initializable {
             return;
         }
 
-        int supplierIdentificationNumber = selectedSupplier.getProduct_id();
+        int supplierIdentificationNumber = selectedSupplier.getSupplier_id();
 
         Integer productId = Integer.parseInt(supplierProductId.getText());
         Supplier updatedSupplier = new Supplier(supplierName.getText(), supplierContInf.getText(), productId);
@@ -131,6 +131,7 @@ public class SupplierView implements Initializable {
             System.err.println("Error updating supplier: " + e.getMessage());
         }
     }
+
 
     private void handleButtonClickDelete(ActionEvent event) {
         System.out.println("Delete Button is clicked");

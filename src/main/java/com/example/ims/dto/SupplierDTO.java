@@ -74,7 +74,7 @@ public class SupplierDTO {
         }
     }
 
-    public void updateSupplier(Supplier updatedSupplier, int supplierIdentificationNumber) throws SQLException {
+    public void updateSupplier(Supplier updatedSupplier, Integer supplierIdentificationNumber) throws SQLException {
         String query = "UPDATE supplier SET name=?, contact_inf=?, product_id=? WHERE supplier_id=?";
 
         try (Connection conn = databaseConnection.getConnection();
@@ -82,11 +82,11 @@ public class SupplierDTO {
             statement.setString(1, updatedSupplier.getName());
             statement.setString(2, updatedSupplier.getContact_inf());
             statement.setInt(3, updatedSupplier.getProduct_id());
-            statement.setInt(4, updatedSupplier.getSupplier_id());
+            statement.setInt(4, supplierIdentificationNumber);
 
             int rowsUpdated = statement.executeUpdate();
             if (rowsUpdated > 0) {
-                updatedSupplier.setProduct_id(supplierIdentificationNumber);
+                updatedSupplier.setSupplier_id(supplierIdentificationNumber);
                 System.out.println("Supplier updated successfully.");
             } else {
                 System.err.println("Failed to update supplier.");
