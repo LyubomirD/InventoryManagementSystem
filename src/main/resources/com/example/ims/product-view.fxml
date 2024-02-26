@@ -3,9 +3,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="150.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ims.scene.ProductView">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ims.scene.ProductView">
     <children>
-        <VBox>
+        <VBox alignment="CENTER" spacing="10">
             <VBox>
                 <HBox>
                     <Label text="Product name: " />
@@ -23,7 +23,7 @@
                     <Label text="Price: " />
                     <TextField fx:id="productPrice" alignment="CENTER_RIGHT" />
                 </HBox>
-                <Button fx:id="productClear" mnemonicParsing="false" text="Clear"/>
+                <Button fx:id="productClear" mnemonicParsing="false" text="Clear" />
             </VBox>
 
             <HBox alignment="CENTER">
@@ -36,15 +36,19 @@
                 </ButtonBar>
             </HBox>
 
-            <TableView fx:id="productTableView" prefHeight="400.0" prefWidth="407.0">
-                <columns>
-                    <TableColumn fx:id="productColumnId" prefWidth="75.0" text="Product_ID" />
-                    <TableColumn fx:id="productColumnName" prefWidth="75.0" text="Name" />
-                    <TableColumn fx:id="productColumnDesc" prefWidth="75.0" text="Short_Desc" />
-                    <TableColumn fx:id="productColumnQuantity" prefWidth="75.0" text="Quantity_Of_Stock" />
-                    <TableColumn fx:id="productColumnPrice" prefWidth="75.0" text="Price" />
-                </columns>
-            </TableView>
+            <ScrollPane vbarPolicy="ALWAYS">
+                <TableView fx:id="productTableView" prefHeight="400.0" prefWidth="523.0">
+                    <columns>
+                        <TableColumn fx:id="productColumnId" prefWidth="75.0" text="Product_ID" />
+                        <TableColumn fx:id="productColumnName" prefWidth="75.0" text="Name" />
+                        <TableColumn fx:id="productColumnDesc" prefWidth="80.0" text="Short_Desc" />
+                        <TableColumn fx:id="productColumnQuantity" prefWidth="120.0" text="Quantity_Of_Stock" />
+                        <TableColumn fx:id="productColumnPrice" prefWidth="75.0" text="Price" />
+                        <TableColumn fx:id="productColumnSupplierId" prefWidth="80.0" text="Supplier_ID" />
+                    </columns>
+                </TableView>
+            </ScrollPane>
+
         </VBox>
     </children>
 </AnchorPane>
