@@ -1,9 +1,7 @@
 package com.example.ims.scene;
 
 import com.example.ims.db_connection.DatabaseConnection;
-import com.example.ims.dto.ProductDTO;
 import com.example.ims.dto.SupplierDTO;
-import com.example.ims.models.Product;
 import com.example.ims.models.Supplier;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -72,12 +70,12 @@ public class SupplierView implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         supplierAdd.setOnAction(this::handleButtonClickAdd);
-//        supplierUpdate.setOnAction(this::handleButtonClickUpdate);
-//        supplierDelete.setOnAction(this::handleButtonClickDelete);
-//        supplierClear.setOnAction(this::clearTextFields);
-//        selectRowInTheTableView();
+        supplierUpdate.setOnAction(this::handleButtonClickUpdate);
+        supplierDelete.setOnAction(this::handleButtonClickDelete);
+        supplierClear.setOnAction(this::clearTextFields);
+        selectRowInTheTableView();
 
-      //  supplierSearchField.setOnKeyPressed(this::setSearchWhenButtonEnterIsPressed);
+        supplierSearchField.setOnKeyPressed(this::setSearchWhenButtonEnterIsPressed);
 
         supplierColumnId.setCellValueFactory(new PropertyValueFactory<>("supplier_id"));
         supplierColumnName.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -110,75 +108,74 @@ public class SupplierView implements Initializable {
             System.err.println("Error adding newSupplier to database: " + e.getMessage());
         }
     }
-//
-//    private void handleButtonClickUpdate(ActionEvent event) {
-//        System.out.println("Update Button is clicked");
-//
-//        Product selectedProduct = productTableView.getSelectionModel().getSelectedItem();
-//
-//        if (selectedProduct == null) {
-//            return;
-//        }
-//
-//        int productIdentificationNumber = selectedProduct.getProduct_id();
-//
-//        Product updatedProduct = new Product(productName.getText(), productDescription.getText(), Double.parseDouble(productQuantityOfStock.getText()), Double.parseDouble(productPrice.getText()));
-//        try {
-//            supplierDTO.updateProduct(updatedProduct, productIdentificationNumber);
-//            System.out.println("Product updated successfully.");
-//            int selectedIndex = productTableView.getSelectionModel().getSelectedIndex();
-//            productList.set(selectedIndex, updatedProduct);
-//        } catch (SQLException e) {
-//            System.err.println("Error updating product: " + e.getMessage());
-//        }
-//    }
-//
-//    private void handleButtonClickDelete(ActionEvent event) {
-//        System.out.println("Delete Button is clicked");
-//
-//        Product selectedProduct = productTableView.getSelectionModel().getSelectedItem();
-//
-//        if (selectedProduct == null) {
-//            System.out.println("No product selected for deletion.");
-//            return;
-//        }
-//
-//        int productIdentificationNumber = selectedProduct.getProduct_id();
-//
-//        try {
-//            supplierDTO.deleteProduct(productIdentificationNumber);
-//            productList.remove(selectedProduct);
-//            System.out.println("Product deleted successfully.");
-//        } catch (SQLException e) {
-//            System.err.println("Error deleting product: " + e.getMessage());
-//        }
-//    }
-//
-//    private void selectRowInTheTableView() {
-//        productTableView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
-//
-//            if (newSelection != null) {
-//                productName.setText(newSelection.getName());
-//                productDescription.setText(newSelection.getDescription());
-//                productQuantityOfStock.setText(String.valueOf(newSelection.getQuantityOfStock()));
-//                productPrice.setText(String.valueOf(newSelection.getPrice()));
-//            } else {
-//                clearTextFields();
-//            }
-//        });
-//    }
-//
-//    private void clearTextFields(ActionEvent event) {
-//        clearTextFields();
-//    }
-//
-//    private void clearTextFields() {
-//        productName.clear();
-//        productDescription.clear();
-//        productQuantityOfStock.clear();
-//        productPrice.clear();
-//    }
-//
+
+    private void handleButtonClickUpdate(ActionEvent event) {
+        System.out.println("Update Button is clicked");
+
+        Supplier selectedSupplier = supplierTableView.getSelectionModel().getSelectedItem();
+
+        if (selectedSupplier == null) {
+            return;
+        }
+
+        int supplierIdentificationNumber = selectedSupplier.getProduct_id();
+
+        Integer productId = Integer.parseInt(supplierProductId.getText());
+        Supplier updatedSupplier = new Supplier(supplierName.getText(), supplierContInf.getText(), productId);
+        try {
+            supplierDTO.updateSupplier(updatedSupplier, supplierIdentificationNumber);
+            System.out.println("Supplier updated successfully.");
+            int selectedIndex = supplierTableView.getSelectionModel().getSelectedIndex();
+            supplierList.set(selectedIndex, updatedSupplier);
+        } catch (SQLException e) {
+            System.err.println("Error updating supplier: " + e.getMessage());
+        }
+    }
+
+    private void handleButtonClickDelete(ActionEvent event) {
+        System.out.println("Delete Button is clicked");
+
+        Supplier selectedSupplier = supplierTableView.getSelectionModel().getSelectedItem();
+
+        if (selectedSupplier == null) {
+            System.out.println("No supplier selected for deletion.");
+            return;
+        }
+
+        int productIdentificationNumber = selectedSupplier.getProduct_id();
+
+        try {
+            supplierDTO.deleteSupplier(productIdentificationNumber);
+            supplierList.remove(selectedSupplier);
+            System.out.println("Product deleted successfully.");
+        } catch (SQLException e) {
+            System.err.println("Error deleting product: " + e.getMessage());
+        }
+    }
+
+    private void selectRowInTheTableView() {
+        supplierTableView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+
+            if (newSelection != null) {
+                supplierName.setText(newSelection.getName());
+                supplierContInf.setText(newSelection.getContact_inf());
+                supplierProductId.setText(String.valueOf(newSelection.getProduct_id()));
+            } else {
+                clearTextFields();
+            }
+        });
+    }
+
+    private void clearTextFields(ActionEvent event) {
+        clearTextFields();
+    }
+
+    private void clearTextFields() {
+        supplierName.clear();
+        supplierContInf.clear();
+        supplierProductId.clear();
+    }
+
 
     private void loadDataFromDatabase() {
 
@@ -191,28 +188,27 @@ public class SupplierView implements Initializable {
         }
     }
 
-//    private void setSearchWhenButtonEnterIsPressed(KeyEvent keyEvent) {
-//        if (keyEvent.getCode() == KeyCode.ENTER) {
-//            searchProducts();
-//        }
-//    }
-//
-//    private void searchProducts() {
-//        String searchText = supplierSearchField.getText().toLowerCase();
-//
-//        filteredData.setPredicate(product -> {
-//            if (searchText.isEmpty()) {
-//                return true;
-//            }
-//
-//            return product.getProduct_id().toString().toLowerCase().contains(searchText)
-//                    || product.getName().toLowerCase().contains(searchText)
-//                    || product.getDescription().toLowerCase().contains(searchText)
-//                    || String.valueOf(product.getQuantityOfStock()).contains(searchText)
-//                    || String.valueOf(product.getPrice()).contains(searchText);
-//        });
-//
-//        supplierTableView.setItems(filteredData);
-//    }
+    private void setSearchWhenButtonEnterIsPressed(KeyEvent keyEvent) {
+        if (keyEvent.getCode() == KeyCode.ENTER) {
+            searchSupplier();
+        }
+    }
+
+    private void searchSupplier() {
+        String searchText = supplierSearchField.getText().toLowerCase();
+
+        filteredData.setPredicate(supplier -> {
+            if (searchText.isEmpty()) {
+                return true;
+            }
+
+            return supplier.getSupplier_id().toString().contains(searchText)
+                    || supplier.getName().toLowerCase().contains(searchText)
+                    || supplier.getContact_inf().toLowerCase().contains(searchText)
+                    || supplier.getProduct_id().toString().contains(searchText);
+        });
+
+        supplierTableView.setItems(filteredData);
+    }
 }
 

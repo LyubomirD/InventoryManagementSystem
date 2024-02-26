@@ -5,7 +5,7 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ims.scene.SupplierView">
     <children>
-        <VBox alignment="CENTER" prefHeight="607.0" prefWidth="476.0" spacing="10">
+        <VBox alignment="CENTER" prefHeight="607.0" prefWidth="600.0" spacing="10">
             <VBox>
                 <HBox>
                     <Label text="Supplier name: " />
@@ -43,12 +43,12 @@
 
             <ScrollPane prefHeight="402.0" prefWidth="390.0" vbarPolicy="ALWAYS">
                 <content>
-                    <TableView fx:id="supplierTableView" prefHeight="400.0" prefWidth="496.0" style="-fx-padding: 0;">
+                    <TableView fx:id="supplierTableView" prefHeight="400.0" prefWidth="586.0" style="-fx-padding: 0;">
                         <columns>
-                            <TableColumn fx:id="supplierColumnId" prefWidth="75.0" text="Supplier_ID" />
-                            <TableColumn fx:id="supplierColumnName" prefWidth="75.0" text="Name" />
-                            <TableColumn fx:id="supplierColumnConfInf" prefWidth="80.0" text="Contact Inf." />
-                            <TableColumn fx:id="supplierColumnProductId" prefWidth="120.0" text="Product_ID" />
+                            <TableColumn fx:id="supplierColumnId" prefWidth="60.0" text="Supplier_ID" />
+                            <TableColumn fx:id="supplierColumnName" prefWidth="100.0" text="Name" />
+                            <TableColumn fx:id="supplierColumnConfInf" prefWidth="150.0" text="Contact Inf." />
+                            <TableColumn fx:id="supplierColumnProductId" prefWidth="60.0" text="Product_ID" />
                         </columns>
                     </TableView>
                 </content>
