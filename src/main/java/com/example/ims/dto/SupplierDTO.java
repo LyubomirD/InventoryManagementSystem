@@ -1,6 +1,7 @@
 package com.example.ims.dto;
 
 import com.example.ims.db_connection.DatabaseConnection;
+import com.example.ims.models.Product;
 import com.example.ims.models.Supplier;
 
 import java.sql.*;
@@ -48,18 +49,21 @@ public class SupplierDTO {
             statement.setDouble(3, newSupplier.getProduct_id());
 
             int rowsInserted = statement.executeUpdate();
-            if (rowsInserted > 0) {
-                ResultSet generatedKeys = statement.getGeneratedKeys();
-                if (generatedKeys.next()) {
-                    int supplierId = generatedKeys.getInt(1);
-                    System.out.println("Supplier added successfully with id: " + supplierId);
-                    newSupplier.setSupplier_id(supplierId);
-                } else {
-                    System.err.println("Failed to retrieve generated supplier ID.");
-                }
-            } else {
+            if (rowsInserted <= 0) {
                 System.err.println("Failed to add supplier.");
+                return;
             }
+
+            ResultSet generatedKeys = statement.getGeneratedKeys();
+
+            if (!generatedKeys.next()) {
+                System.err.println("Failed to retrieve generated supplier ID.");
+                return;
+            }
+
+            int supplierId = generatedKeys.getInt(1);
+            System.out.println("Supplier added successfully with id: " + supplierId);
+            newSupplier.setSupplier_id(supplierId);
         }
     }
 
@@ -68,6 +72,20 @@ public class SupplierDTO {
         try (Connection conn = databaseConnection.getConnection();
              PreparedStatement statement = conn.prepareStatement(query)) {
             statement.setInt(1, productId);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                return resultSet.next();
+            }
+        }
+    }
+
+    public boolean isSupplierExistingAlready(Supplier newSupplier) throws SQLException {
+        String query = "SELECT * FROM supplier WHERE name=? AND contact_inf=?";
+
+        try (Connection conn = databaseConnection.getConnection();
+             PreparedStatement statement = conn.prepareStatement(query)) {
+            statement.setString(1, newSupplier.getName());
+            statement.setString(2, newSupplier.getContact_inf());
+
             try (ResultSet resultSet = statement.executeQuery()) {
                 return resultSet.next();
             }

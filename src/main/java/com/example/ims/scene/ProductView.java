@@ -13,7 +13,6 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.Region;
 
 import java.net.URL;
 import java.sql.SQLException;
@@ -95,9 +94,20 @@ public class ProductView implements Initializable {
         Product newProduct = new Product(productName.getText(), productDescription.getText(), Double.parseDouble(productQuantityOfStock.getText()), Double.parseDouble(productPrice.getText()));
 
         try {
+            if (productDTO.isProductExistingAlready(newProduct)) {
+                System.out.println("Product already existing in database.");
+                return;
+            }
+        } catch (SQLException e) {
+            System.err.println("Error trying adding existing product to database: " + e.getMessage());
+        }
+
+        try {
             productDTO.addProduct(newProduct);
+
             productList.add(newProduct);
             productTableView.setItems(productList);
+
             System.out.println("Product added to database successfully.");
         } catch (SQLException e) {
             System.err.println("Error adding newProduct to database: " + e.getMessage());
@@ -118,9 +128,11 @@ public class ProductView implements Initializable {
         Product updatedProduct = new Product(productName.getText(), productDescription.getText(), Double.parseDouble(productQuantityOfStock.getText()), Double.parseDouble(productPrice.getText()));
         try {
             productDTO.updateProduct(updatedProduct, productIdentificationNumber);
-            System.out.println("Product updated successfully.");
+
             int selectedIndex = productTableView.getSelectionModel().getSelectedIndex();
             productList.set(selectedIndex, updatedProduct);
+
+            System.out.println("Product updated successfully.");
         } catch (SQLException e) {
             System.err.println("Error updating product: " + e.getMessage());
         }
@@ -140,7 +152,9 @@ public class ProductView implements Initializable {
 
         try {
             productDTO.deleteProduct(productIdentificationNumber);
+
             productList.remove(selectedProduct);
+
             System.out.println("Product deleted successfully.");
         } catch (SQLException e) {
             System.err.println("Error deleting product: " + e.getMessage());
@@ -156,8 +170,9 @@ public class ProductView implements Initializable {
                 productQuantityOfStock.setText(String.valueOf(newSelection.getQuantityOfStock()));
                 productPrice.setText(String.valueOf(newSelection.getPrice()));
             } else {
-                clearTextFields();
+               clearTextFields();
             }
+
         });
     }
 
@@ -199,7 +214,7 @@ public class ProductView implements Initializable {
             }
 
             return product.getProduct_id().toString().toLowerCase().contains(searchText)
-                    ||product.getName().toLowerCase().contains(searchText)
+                    || product.getName().toLowerCase().contains(searchText)
                     || product.getDescription().toLowerCase().contains(searchText)
                     || String.valueOf(product.getQuantityOfStock()).contains(searchText)
                     || String.valueOf(product.getPrice()).contains(searchText);

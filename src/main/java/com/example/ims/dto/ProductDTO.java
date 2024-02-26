@@ -50,21 +50,39 @@ public class ProductDTO {
             statement.setDouble(4, newProduct.getPrice());
 
             int rowsInserted = statement.executeUpdate();
-            if (rowsInserted > 0) {
-                ResultSet generatedKeys = statement.getGeneratedKeys();
-                if (generatedKeys.next()) {
-                    int productId = generatedKeys.getInt(1);
-                    System.out.println("Product added successfully with id: " + productId);
-                    newProduct.setProduct_id(productId); // Set the generated product_id
-                } else {
-                    System.err.println("Failed to retrieve generated newProduct ID.");
-                }
-            } else {
+            if (rowsInserted <= 0) {
                 System.err.println("Failed to add newProduct.");
+                return;
             }
+
+            ResultSet generatedKeys = statement.getGeneratedKeys();
+
+            if (!generatedKeys.next()) {
+                System.err.println("Failed to retrieve generated newProduct ID.");
+                return;
+            }
+
+            int productId = generatedKeys.getInt(1);
+            System.out.println("Product added successfully with id: " + productId);
+            newProduct.setProduct_id(productId);
         }
     }
 
+    public boolean isProductExistingAlready(Product newProduct) throws SQLException {
+        String query = "SELECT * FROM products WHERE name=? AND description=? AND quantity_of_stock=? AND price=?";
+
+        try (Connection conn = databaseConnection.getConnection();
+             PreparedStatement statement = conn.prepareStatement(query)) {
+            statement.setString(1, newProduct.getName());
+            statement.setString(2, newProduct.getDescription());
+            statement.setDouble(3, newProduct.getQuantityOfStock());
+            statement.setDouble(4, newProduct.getPrice());
+
+            try (ResultSet resultSet = statement.executeQuery()) {
+                return resultSet.next();
+            }
+        }
+    }
 
     public void updateProduct(Product updatedProduct, Integer productIdentificationNumber) throws SQLException {
         String query = "UPDATE products SET name=?, description=?, quantity_of_stock=?, price=? WHERE product_id=?";

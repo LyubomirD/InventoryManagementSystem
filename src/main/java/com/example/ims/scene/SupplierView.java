@@ -91,6 +91,14 @@ public class SupplierView implements Initializable {
         Integer productId = Integer.parseInt(supplierProductId.getText());
         Supplier newSupplier = new Supplier(supplierName.getText(), supplierContInf.getText(), productId);
 
+        try {
+            if (supplierDTO.isSupplierExistingAlready(newSupplier)) {
+                System.out.println("Supplier already existing in database.");
+                return;
+            }
+        } catch (SQLException e) {
+            System.err.println("Error adding newSupplier to database: " + e.getMessage());
+        }
 
         try {
             if (supplierDTO.productExists(productId)) {
