@@ -5,7 +5,7 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ims.scene.ProductView">
     <children>
-        <VBox alignment="CENTER" spacing="10">
+        <VBox alignment="CENTER" prefHeight="607.0" prefWidth="442.0" spacing="10">
             <VBox>
                 <HBox>
                     <Label text="Product name: " />
@@ -44,14 +44,13 @@
             </HBox>
 
             <ScrollPane vbarPolicy="ALWAYS">
-                <TableView fx:id="productTableView" prefHeight="400.0" prefWidth="523.0">
+                <TableView fx:id="productTableView" prefHeight="400.0" prefWidth="435.0">
                     <columns>
                         <TableColumn fx:id="productColumnId" prefWidth="75.0" text="Product_ID" />
                         <TableColumn fx:id="productColumnName" prefWidth="75.0" text="Name" />
                         <TableColumn fx:id="productColumnDesc" prefWidth="80.0" text="Short_Desc" />
                         <TableColumn fx:id="productColumnQuantity" prefWidth="120.0" text="Quantity_Of_Stock" />
                         <TableColumn fx:id="productColumnPrice" prefWidth="75.0" text="Price" />
-                        <TableColumn fx:id="productColumnSupplierId" prefWidth="80.0" text="Supplier_ID" />
                     </columns>
                 </TableView>
             </ScrollPane>

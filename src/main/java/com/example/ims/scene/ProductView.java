@@ -52,8 +52,6 @@ public class ProductView implements Initializable {
     private TableColumn<Product, Double> productColumnQuantity;
     @FXML
     private TableColumn<Product, Double> productColumnPrice;
-    @FXML
-    private TableColumn<Product, Integer> productColumnSupplierId;
 
     @FXML
     private TextField searchField;
