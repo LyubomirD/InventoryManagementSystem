@@ -4,14 +4,21 @@ public class Supplier {
 
     private Integer supplier_id;
     private String name;
-    private String contactInf;
-    private Integer phoneNumber;
+    private String contact_inf;
+    private Integer product_id;
 
-    public Supplier(Integer supplier_id, String name, String contactInf, int phoneNumber) {
-        this.supplier_id = supplier_id;
+    public Supplier(String name, String contact_inf, Integer product_id) {
         this.name = name;
-        this.contactInf = contactInf;
-        this.phoneNumber = phoneNumber;
+        this.contact_inf = contact_inf;
+        this.product_id = product_id;
+    }
+
+    public Integer getProduct_id() {
+        return product_id;
+    }
+
+    public void setProduct_id(Integer product_id) {
+        this.product_id = product_id;
     }
 
     public Integer getSupplier_id() {
@@ -30,19 +37,11 @@ public class Supplier {
         this.name = name;
     }
 
-    public String getContactInf() {
-        return contactInf;
+    public String getContact_inf() {
+        return contact_inf;
     }
 
-    public void setContactInf(String contactInf) {
-        this.contactInf = contactInf;
-    }
-
-    public int getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(int phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setContact_inf(String contact_inf) {
+        this.contact_inf = contact_inf;
     }
 }

@@ -5,10 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6f872d02-0162-40ae-bdd1-8f0434f96cdb" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/ims/models/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/ims/models/Product.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/ims/dto/SupplierDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/a1a71a17-bab7-48f0-88f9-0802c3a3674b.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/a1a71a17-bab7-48f0-88f9-0802c3a3674b.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/a1a71a17-bab7-48f0-88f9-0802c3a3674b/storage_v2/_src_/database/inventorymanagementsystem.jk2kPg/schema/public.abK9xQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/a1a71a17-bab7-48f0-88f9-0802c3a3674b/storage_v2/_src_/database/inventorymanagementsystem.jk2kPg/schema/public.abK9xQ.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/ims/dto/ProductDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/ims/dto/ProductDTO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/ims/models/Supplier.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/ims/models/Supplier.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/ims/scene/ProductView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/ims/scene/ProductView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/ims/scene/SupplierView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/ims/scene/SupplierView.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/ims/product-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/ims/product-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/ims/supplier-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/ims/supplier-view.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

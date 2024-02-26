@@ -39,7 +39,7 @@
             <HBox alignment="CENTER">
                 <HBox>
                     <Label text="Search: " />
-                    <TextField fx:id="searchField" />
+                    <TextField fx:id="productSearchField" />
                 </HBox>
             </HBox>
 

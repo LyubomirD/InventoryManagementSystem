@@ -3,7 +3,7 @@
   <database-model serializer="dbm" dbms="POSTGRES" family-id="POSTGRES" format-version="4.45">
     <root id="1">
       <DateStyle>mdy</DateStyle>
-      <IntrospectionStateNumber>751</IntrospectionStateNumber>
+      <IntrospectionStateNumber>799</IntrospectionStateNumber>
       <ServerVersion>15.2</ServerVersion>
       <StartupTime>1708693854</StartupTime>
       <TimeZones>true ACDT
@@ -801,7 +801,7 @@ false Zulu
 13471||10|C|G
 13471||-9223372036854775808|U|G
 13471||10|U|G</Grants>
-      <IntrospectionStateNumber>751</IntrospectionStateNumber>
+      <IntrospectionStateNumber>799</IntrospectionStateNumber>
       <ObjectId>16386</ObjectId>
       <OwnerName>lubodimoff</OwnerName>
     </database>
@@ -4234,71 +4234,137 @@ false Zulu
     <schema id="265" parent="2" name="public">
       <Comment>standard public schema</Comment>
       <Current>1</Current>
-      <IntrospectionStateNumber>751</IntrospectionStateNumber>
+      <IntrospectionStateNumber>799</IntrospectionStateNumber>
       <ObjectId>2200</ObjectId>
       <StateNumber>517</StateNumber>
       <OwnerName>pg_database_owner</OwnerName>
     </schema>
     <sequence id="266" parent="265" name="products_product_id_seq">
       <DasType>integer|0s</DasType>
-      <ObjectId>16390</ObjectId>
-      <StateNumber>732</StateNumber>
+      <ObjectId>16416</ObjectId>
+      <StateNumber>797</StateNumber>
       <OwnerName>lubodimoff</OwnerName>
     </sequence>
-    <table id="267" parent="265" name="products">
-      <ObjectId>16391</ObjectId>
-      <StateNumber>732</StateNumber>
+    <sequence id="267" parent="265" name="supplier_supplier_id_seq">
+      <DasType>integer|0s</DasType>
+      <ObjectId>16425</ObjectId>
+      <StateNumber>798</StateNumber>
+      <OwnerName>lubodimoff</OwnerName>
+    </sequence>
+    <table id="268" parent="265" name="products">
+      <ObjectId>16417</ObjectId>
+      <StateNumber>798</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>lubodimoff</OwnerName>
     </table>
-    <column id="268" parent="267" name="product_id">
+    <table id="269" parent="265" name="supplier">
+      <ObjectId>16426</ObjectId>
+      <StateNumber>798</StateNumber>
+      <AccessMethodId>2</AccessMethodId>
+      <OwnerName>lubodimoff</OwnerName>
+    </table>
+    <column id="270" parent="268" name="product_id">
       <DasType>integer|0s</DasType>
       <DefaultExpression>nextval(&apos;products_product_id_seq&apos;::regclass)</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <StateNumber>732</StateNumber>
-      <SequenceId>16390</SequenceId>
+      <StateNumber>797</StateNumber>
+      <SequenceId>16416</SequenceId>
       <TypeId>23</TypeId>
     </column>
-    <column id="269" parent="267" name="name">
+    <column id="271" parent="268" name="name">
       <DasType>varchar(255)|0s</DasType>
       <Position>2</Position>
-      <StateNumber>732</StateNumber>
+      <StateNumber>797</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <column id="270" parent="267" name="description">
+    <column id="272" parent="268" name="description">
       <DasType>text|0s</DasType>
       <Position>3</Position>
-      <StateNumber>732</StateNumber>
+      <StateNumber>797</StateNumber>
       <TypeId>25</TypeId>
     </column>
-    <column id="271" parent="267" name="quantity_of_stock">
+    <column id="273" parent="268" name="quantity_of_stock">
       <DasType>double precision|0s</DasType>
       <Position>4</Position>
-      <StateNumber>732</StateNumber>
+      <StateNumber>797</StateNumber>
       <TypeId>701</TypeId>
     </column>
-    <column id="272" parent="267" name="price">
+    <column id="274" parent="268" name="price">
       <DasType>double precision|0s</DasType>
       <Position>5</Position>
-      <StateNumber>732</StateNumber>
+      <StateNumber>797</StateNumber>
       <TypeId>701</TypeId>
     </column>
-    <index id="273" parent="267" name="products_pkey">
+    <index id="275" parent="268" name="products_pkey">
       <ColNames>product_id</ColNames>
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>16397</ObjectId>
+      <ObjectId>16423</ObjectId>
       <Primary>1</Primary>
-      <StateNumber>732</StateNumber>
+      <StateNumber>797</StateNumber>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <key id="274" parent="267" name="products_pkey">
+    <key id="276" parent="268" name="products_pkey">
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>16398</ObjectId>
+      <ObjectId>16424</ObjectId>
       <Primary>1</Primary>
-      <StateNumber>732</StateNumber>
-      <UnderlyingIndexId>16397</UnderlyingIndexId>
+      <StateNumber>797</StateNumber>
+      <UnderlyingIndexId>16423</UnderlyingIndexId>
+    </key>
+    <column id="277" parent="269" name="supplier_id">
+      <DasType>integer|0s</DasType>
+      <DefaultExpression>nextval(&apos;supplier_supplier_id_seq&apos;::regclass)</DefaultExpression>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+      <StateNumber>798</StateNumber>
+      <SequenceId>16425</SequenceId>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="278" parent="269" name="name">
+      <DasType>varchar(255)|0s</DasType>
+      <Position>2</Position>
+      <StateNumber>798</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="279" parent="269" name="contact_inf">
+      <DasType>text|0s</DasType>
+      <Position>3</Position>
+      <StateNumber>798</StateNumber>
+      <TypeId>25</TypeId>
+    </column>
+    <column id="280" parent="269" name="product_id">
+      <DasType>integer|0s</DasType>
+      <Position>4</Position>
+      <StateNumber>798</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <foreign-key id="281" parent="269" name="supplier_product_id_fkey">
+      <ColNames>product_id</ColNames>
+      <NameSurrogate>1</NameSurrogate>
+      <ObjectId>16434</ObjectId>
+      <RefColNames>product_id</RefColNames>
+      <RefColPositions>1</RefColPositions>
+      <StateNumber>798</StateNumber>
+      <RefTableId>16417</RefTableId>
+      <RefTableName>products</RefTableName>
+      <RefTableKind>table</RefTableKind>
+    </foreign-key>
+    <index id="282" parent="269" name="supplier_pkey">
+      <ColNames>supplier_id</ColNames>
+      <NameSurrogate>1</NameSurrogate>
+      <ObjectId>16432</ObjectId>
+      <Primary>1</Primary>
+      <StateNumber>798</StateNumber>
+      <Unique>1</Unique>
+      <AccessMethodId>403</AccessMethodId>
+    </index>
+    <key id="283" parent="269" name="supplier_pkey">
+      <NameSurrogate>1</NameSurrogate>
+      <ObjectId>16433</ObjectId>
+      <Primary>1</Primary>
+      <StateNumber>798</StateNumber>
+      <UnderlyingIndexId>16432</UnderlyingIndexId>
     </key>
   </database-model>
 </dataSource>

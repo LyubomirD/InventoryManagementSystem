@@ -54,7 +54,7 @@ public class ProductView implements Initializable {
     private TableColumn<Product, Double> productColumnPrice;
 
     @FXML
-    private TextField searchField;
+    private TextField productSearchField;
 
 
     private final ObservableList<Product> productList = FXCollections.observableArrayList();
@@ -77,7 +77,7 @@ public class ProductView implements Initializable {
         productClear.setOnAction(this::clearTextFields);
         selectRowInTheTableView();
 
-        searchField.setOnKeyPressed(this::setSearchWhenButtonEnterIsPressed);
+        productSearchField.setOnKeyPressed(this::setSearchWhenButtonEnterIsPressed);
 
         productColumnId.setCellValueFactory(new PropertyValueFactory<>("product_id"));
         productColumnName.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -93,11 +93,10 @@ public class ProductView implements Initializable {
         System.out.println("Add Button is clicked");
         Product newProduct = new Product(productName.getText(), productDescription.getText(), Double.parseDouble(productQuantityOfStock.getText()), Double.parseDouble(productPrice.getText()));
 
-        productList.add(newProduct);
-        productTableView.setItems(productList);
-
         try {
             productDTO.addProduct(newProduct);
+            productList.add(newProduct);
+            productTableView.setItems(productList);
             System.out.println("Product added to database successfully.");
         } catch (SQLException e) {
             System.err.println("Error adding newProduct to database: " + e.getMessage());
@@ -191,7 +190,7 @@ public class ProductView implements Initializable {
     }
 
     private void searchProducts() {
-        String searchText = searchField.getText().toLowerCase();
+        String searchText = productSearchField.getText().toLowerCase();
 
         filteredData.setPredicate(product -> {
             if (searchText.isEmpty()) {

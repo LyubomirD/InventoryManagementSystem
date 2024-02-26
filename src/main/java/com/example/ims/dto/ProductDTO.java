@@ -11,8 +11,6 @@ public class ProductDTO {
 
     private final DatabaseConnection databaseConnection;
 
-
-
     public ProductDTO(DatabaseConnection databaseConnection) {
         this.databaseConnection = databaseConnection;
     }
@@ -41,15 +39,15 @@ public class ProductDTO {
         return productList;
     }
 
-    public void addProduct(Product product) throws SQLException {
+    public void addProduct(Product newProduct) throws SQLException {
         String query = "INSERT INTO products (name, description, quantity_of_stock, price) VALUES (?, ?, ?, ?)";
 
         try (Connection conn = databaseConnection.getConnection();
              PreparedStatement statement = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
-            statement.setString(1, product.getName());
-            statement.setString(2, product.getDescription());
-            statement.setDouble(3, product.getQuantityOfStock());
-            statement.setDouble(4, product.getPrice());
+            statement.setString(1, newProduct.getName());
+            statement.setString(2, newProduct.getDescription());
+            statement.setDouble(3, newProduct.getQuantityOfStock());
+            statement.setDouble(4, newProduct.getPrice());
 
             int rowsInserted = statement.executeUpdate();
             if (rowsInserted > 0) {
@@ -57,12 +55,12 @@ public class ProductDTO {
                 if (generatedKeys.next()) {
                     int productId = generatedKeys.getInt(1);
                     System.out.println("Product added successfully with id: " + productId);
-                    product.setProduct_id(productId); // Set the generated product_id
+                    newProduct.setProduct_id(productId); // Set the generated product_id
                 } else {
-                    System.err.println("Failed to retrieve generated product ID.");
+                    System.err.println("Failed to retrieve generated newProduct ID.");
                 }
             } else {
-                System.err.println("Failed to add product.");
+                System.err.println("Failed to add newProduct.");
             }
         }
     }

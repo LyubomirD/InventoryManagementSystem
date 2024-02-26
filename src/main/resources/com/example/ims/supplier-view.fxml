@@ -1,13 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ims.scene.SupplierView">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ims.scene.SupplierView">
     <children>
-        <Label layoutX="216.0" layoutY="183.0" prefHeight="64.0" prefWidth="159.0" text="Supplier" />
+        <VBox alignment="CENTER" prefHeight="607.0" prefWidth="476.0" spacing="10">
+            <VBox>
+                <HBox>
+                    <Label text="Supplier name: " />
+                    <TextField fx:id="supplierName" alignment="CENTER_RIGHT" />
+                </HBox>
+                <HBox>
+                    <Label text="Contact Inf: " />
+                    <TextField fx:id="supplierContInf" alignment="CENTER_RIGHT" />
+                </HBox>
+                <HBox>
+                    <Label text="Product Id: " />
+                    <TextField fx:id="supplierProductId" alignment="CENTER_RIGHT" />
+
+                    <Label fx:id="errorMessageLabel" textFill="red" visible="false" />
+                </HBox>
+                <Button fx:id="supplierClear" mnemonicParsing="false" text="Clear" />
+            </VBox>
+
+            <HBox alignment="CENTER">
+                <ButtonBar>
+                    <buttons>
+                        <Button fx:id="supplierAdd" mnemonicParsing="false" text="Add" />
+                        <Button fx:id="supplierUpdate" mnemonicParsing="false" text="Update" />
+                        <Button fx:id="supplierDelete" mnemonicParsing="false" text="Delete" />
+                    </buttons>
+                </ButtonBar>
+            </HBox>
+
+            <HBox alignment="CENTER">
+                <HBox>
+                    <Label text="Search: " />
+                    <TextField fx:id="supplierSearchField" />
+                </HBox>
+            </HBox>
+
+            <ScrollPane prefHeight="402.0" prefWidth="390.0" vbarPolicy="ALWAYS">
+                <content>
+                    <TableView fx:id="supplierTableView" prefHeight="400.0" prefWidth="496.0" style="-fx-padding: 0;">
+                        <columns>
+                            <TableColumn fx:id="supplierColumnId" prefWidth="75.0" text="Supplier_ID" />
+                            <TableColumn fx:id="supplierColumnName" prefWidth="75.0" text="Name" />
+                            <TableColumn fx:id="supplierColumnConfInf" prefWidth="80.0" text="Contact Inf." />
+                            <TableColumn fx:id="supplierColumnProductId" prefWidth="120.0" text="Product_ID" />
+                        </columns>
+                    </TableView>
+                </content>
+            </ScrollPane>
+
+        </VBox>
     </children>
 </AnchorPane>
