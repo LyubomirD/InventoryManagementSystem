@@ -36,6 +36,13 @@
                 </ButtonBar>
             </HBox>
 
+            <HBox alignment="CENTER">
+                <HBox>
+                    <Label text="Search: " />
+                    <TextField fx:id="searchField" />
+                </HBox>
+            </HBox>
+
             <ScrollPane vbarPolicy="ALWAYS">
                 <TableView fx:id="productTableView" prefHeight="400.0" prefWidth="523.0">
                     <columns>

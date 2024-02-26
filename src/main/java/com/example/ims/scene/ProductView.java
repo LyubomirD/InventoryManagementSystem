@@ -5,11 +5,14 @@ import com.example.ims.dto.ProductDTO;
 import com.example.ims.models.Product;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 
 import java.net.URL;
 import java.sql.SQLException;
@@ -49,12 +52,23 @@ public class ProductView implements Initializable {
     private TableColumn<Product, Double> productColumnQuantity;
     @FXML
     private TableColumn<Product, Double> productColumnPrice;
+    @FXML
+    private TableColumn<Product, Integer> productColumnSupplierId;
+
+    @FXML
+    private TextField searchField;
+
 
     private final ObservableList<Product> productList = FXCollections.observableArrayList();
     private final DatabaseConnection databaseConnection;
+    private final ProductDTO productDTO;
+    private final FilteredList<Product> filteredData;
+
 
     public ProductView() {
         databaseConnection = new DatabaseConnection();
+        productDTO = new ProductDTO(databaseConnection);
+        filteredData = new FilteredList<>(productList, p -> true);
     }
 
     @Override
@@ -64,6 +78,8 @@ public class ProductView implements Initializable {
         productDelete.setOnAction(this::handleButtonClickDelete);
         productClear.setOnAction(this::clearTextFields);
         selectRowInTheTableView();
+
+        searchField.setOnKeyPressed(this::setSearchWhenButtonEnterIsPressed);
 
         productColumnId.setCellValueFactory(new PropertyValueFactory<>("product_id"));
         productColumnName.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -82,7 +98,6 @@ public class ProductView implements Initializable {
         productList.add(newProduct);
         productTableView.setItems(productList);
 
-        ProductDTO productDTO = new ProductDTO(databaseConnection);
         try {
             productDTO.addProduct(newProduct);
             System.out.println("Product added to database successfully.");
@@ -103,7 +118,6 @@ public class ProductView implements Initializable {
         int productIdentificationNumber = selectedProduct.getProduct_id();
 
         Product updatedProduct = new Product(productName.getText(), productDescription.getText(), Double.parseDouble(productQuantityOfStock.getText()), Double.parseDouble(productPrice.getText()));
-        ProductDTO productDTO = new ProductDTO(databaseConnection);
         try {
             productDTO.updateProduct(updatedProduct, productIdentificationNumber);
             System.out.println("Product updated successfully.");
@@ -126,7 +140,6 @@ public class ProductView implements Initializable {
 
         int productIdentificationNumber = selectedProduct.getProduct_id();
 
-        ProductDTO productDTO = new ProductDTO(databaseConnection);
         try {
             productDTO.deleteProduct(productIdentificationNumber);
             productList.remove(selectedProduct);
@@ -163,7 +176,7 @@ public class ProductView implements Initializable {
 
 
     private void loadDataFromDatabase() {
-        ProductDTO productDTO = new ProductDTO(databaseConnection);
+
         try {
             List<Product> products = productDTO.getAllProducts();
             productList.addAll(products);
@@ -172,24 +185,28 @@ public class ProductView implements Initializable {
             System.err.println("Error loading data from database: " + e.getMessage());
         }
     }
-}
 
-
-/*
-
-    private Integer getSelectedRowProductId() {
-        Product selectedProduct = productTableView.getSelectionModel().getSelectedItem();
-
-        if (selectedProduct == null) {
-            clearTextFields();
+    private void setSearchWhenButtonEnterIsPressed(KeyEvent keyEvent) {
+        if (keyEvent.getCode() == KeyCode.ENTER) {
+            searchProducts();
         }
-
-        productName.setText(selectedProduct.getName());
-        productDescription.setText(selectedProduct.getDescription());
-        productQuantityOfStock.setText(String.valueOf(selectedProduct.getQuantityOfStock()));
-        productPrice.setText(String.valueOf(selectedProduct.getPrice()));
-
-        return selectedProduct.getProduct_id();
     }
 
- */
+    private void searchProducts() {
+        String searchText = searchField.getText().toLowerCase();
+
+        filteredData.setPredicate(product -> {
+            if (searchText.isEmpty()) {
+                return true;
+            }
+
+            return product.getProduct_id().toString().toLowerCase().contains(searchText)
+                    ||product.getName().toLowerCase().contains(searchText)
+                    || product.getDescription().toLowerCase().contains(searchText)
+                    || String.valueOf(product.getQuantityOfStock()).contains(searchText)
+                    || String.valueOf(product.getPrice()).contains(searchText);
+        });
+
+        productTableView.setItems(filteredData);
+    }
+}
