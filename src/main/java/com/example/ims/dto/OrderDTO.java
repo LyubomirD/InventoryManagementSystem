@@ -107,7 +107,7 @@ public class OrderDTO {
         }
     }
 
-    public void updateProductQuantityOfStockAfterOrder(Double newQuantityAfterParches, Integer productId) throws SQLException{
+    public void updateProductQuantityOfStockAfterOrder(Double newQuantityAfterParches, Integer productId) throws SQLException {
         String query = "UPDATE products SET quantity_of_stock=? WHERE product_id=? ";
         try (Connection conn = databaseConnection.getConnection();
              PreparedStatement statement = conn.prepareStatement(query)) {
@@ -123,4 +123,37 @@ public class OrderDTO {
         }
     }
 
+    public void updateOrder(Order updatedOrder, int orderIdentificationNumber) throws SQLException {
+        String query = "UPDATE orders SET product_id=?, quantity=?, total_price=? WHERE order_id=?";
+        try (Connection conn = databaseConnection.getConnection();
+             PreparedStatement statement = conn.prepareStatement(query)) {
+            statement.setInt(1, updatedOrder.getProduct_id());
+            statement.setDouble(2, updatedOrder.getQuantity());
+            statement.setDouble(3, updatedOrder.getTotal_price());
+            statement.setInt(4, orderIdentificationNumber);
+
+            int rowsUpdated = statement.executeUpdate();
+            if (rowsUpdated > 0) {
+                updatedOrder.setOrder_id(orderIdentificationNumber);
+                System.out.println("Order updated successfully.");
+            } else {
+                System.err.println("Failed to update order.");
+            }
+        }
+    }
+
+    public void deleteOrder(int orderIdentificationNumber) throws SQLException {
+        String query = "DELETE FROM orders WHERE order_id=?";
+        try (Connection conn = databaseConnection.getConnection();
+             PreparedStatement statement = conn.prepareStatement(query)) {
+            statement.setInt(1, orderIdentificationNumber);
+
+            int rowsDeleted = statement.executeUpdate();
+            if (rowsDeleted > 0) {
+                System.out.println("Order deleted successfully.");
+            } else {
+                System.err.println("Failed to delete order.");
+            }
+        }
+    }
 }

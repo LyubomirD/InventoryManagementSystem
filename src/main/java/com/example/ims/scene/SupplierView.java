@@ -156,9 +156,9 @@ public class SupplierView implements Initializable {
         try {
             supplierDTO.deleteSupplier(productIdentificationNumber);
             supplierList.remove(selectedSupplier);
-            System.out.println("Product deleted successfully.");
+            System.out.println("Supplier deleted successfully.");
         } catch (SQLException e) {
-            System.err.println("Error deleting product: " + e.getMessage());
+            System.err.println("Error deleting supplier: " + e.getMessage());
         }
     }
 

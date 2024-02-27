@@ -6,6 +6,7 @@ import com.example.ims.dto.OrderDTO;
 import com.example.ims.dto.SupplierDTO;
 import com.example.ims.models.Order;
 
+import com.example.ims.models.Supplier;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -14,6 +15,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 
 import java.net.URL;
 import java.sql.SQLException;
@@ -68,6 +71,12 @@ public class OrderView implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         orderAdd.setOnAction(this::handleButtonClickAdd);
+        orderUpdate.setOnAction(this::handleButtonClickUpdate);
+        orderDelete.setOnAction(this::handleButtonClickDelete);
+        orderClear.setOnAction(this::clearTextFields);
+        selectRowInTheTableView();
+
+        orderSearchField.setOnKeyPressed(this::setSearchWhenButtonEnterIsPressed);
 
         orderColumnId.setCellValueFactory(new PropertyValueFactory<>("order_id"));
         orderColumnProductId.setCellValueFactory(new PropertyValueFactory<>("product_id"));
@@ -125,6 +134,74 @@ public class OrderView implements Initializable {
         }
     }
 
+    private void handleButtonClickUpdate(ActionEvent event) {
+        System.out.println("Update Button is clicked");
+
+        Order selectedOrder = orderTableView.getSelectionModel().getSelectedItem();
+
+        if (selectedOrder == null) {
+            return;
+        }
+
+        int orderIdentificationNumber = selectedOrder.getOrder_id();
+
+        Integer productId = Integer.parseInt(orderProductId.getText());
+        Double quantityOrder = Double.parseDouble(orderQuantity.getText());
+        Double totalPriceOfOrder = calculateTotalPrice(quantityOrder, productId);
+
+        Order updatedOrder = new Order(productId, quantityOrder, totalPriceOfOrder);
+        try {
+            orderDTO.updateOrder(updatedOrder, orderIdentificationNumber);
+            System.out.println("Order updated successfully.");
+            int selectedIndex = orderTableView.getSelectionModel().getSelectedIndex();
+            orderList.set(selectedIndex, updatedOrder);
+        } catch (SQLException e) {
+            System.err.println("Error updating order: " + e.getMessage());
+        }
+    }
+
+    private void handleButtonClickDelete(ActionEvent event) {
+        System.out.println("Delete Button is clicked");
+
+        Order selectedOrder = orderTableView.getSelectionModel().getSelectedItem();
+
+        if (selectedOrder == null) {
+            System.out.println("No order selected for deletion.");
+            return;
+        }
+
+        int productIdentificationNumber = selectedOrder.getProduct_id();
+
+        try {
+            orderDTO.deleteOrder(productIdentificationNumber);
+            orderList.remove(selectedOrder);
+            System.out.println("Order deleted successfully.");
+        } catch (SQLException e) {
+            System.err.println("Error deleting order: " + e.getMessage());
+        }
+    }
+
+    private void selectRowInTheTableView() {
+        orderTableView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+
+            if (newSelection != null) {
+                orderQuantity.setText(String.valueOf(newSelection.getQuantity()));
+                orderProductId.setText(String.valueOf(newSelection.getProduct_id()));
+            } else {
+                clearTextFields();
+            }
+        });
+    }
+
+    private void clearTextFields(ActionEvent event) {
+        clearTextFields();
+    }
+
+    private void clearTextFields() {
+        orderQuantity.clear();
+        orderProductId.clear();
+    }
+
     private void loadDataFromDatabase() {
         try {
             List<Order> orders = orderDTO.getAllOrders();
@@ -135,4 +212,26 @@ public class OrderView implements Initializable {
         }
     }
 
+    private void setSearchWhenButtonEnterIsPressed(KeyEvent keyEvent) {
+        if (keyEvent.getCode() == KeyCode.ENTER) {
+            searchSupplier();
+        }
+    }
+
+    private void searchSupplier() {
+        String searchText = orderSearchField.getText().toLowerCase();
+
+        filteredData.setPredicate(order -> {
+            if (searchText.isEmpty()) {
+                return true;
+            }
+
+            return order.getOrder_id().toString().contains(searchText)
+                    || order.getProduct_id().toString().contains(searchText)
+                    || order.getQuantity().toString().contains(searchText)
+                    || order.getTotal_price().toString().contains(searchText);
+        });
+
+        orderTableView.setItems(filteredData);
+    }
 }
