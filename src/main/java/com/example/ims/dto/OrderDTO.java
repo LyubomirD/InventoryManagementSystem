@@ -107,18 +107,17 @@ public class OrderDTO {
         }
     }
 
-    public void updateProductQuantityOfStockAfterOrder(Double newQuantityAfterParches, Integer productId) throws SQLException {
-        String query = "UPDATE products SET quantity_of_stock=? WHERE product_id=? ";
+    public Double getPreviousProductQuantityOfStock(Integer orderId) throws SQLException {
+        String query = "SELECT quantity FROM orders WHERE order_id=?";
         try (Connection conn = databaseConnection.getConnection();
              PreparedStatement statement = conn.prepareStatement(query)) {
-            statement.setDouble(1, newQuantityAfterParches);
-            statement.setInt(2, productId);
-
-            int rowsUpdated = statement.executeUpdate();
-            if (rowsUpdated > 0) {
-                System.out.println("Product quantity_of_stock updated successfully.");
-            } else {
-                System.err.println("Failed to update product quantity_of_stock.");
+            statement.setInt(1, orderId);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    return resultSet.getDouble(1);
+                } else {
+                    return null;
+                }
             }
         }
     }
@@ -156,5 +155,21 @@ public class OrderDTO {
         }
     }
 
+    public void updateProductQuantityInStock(Double productFinalQuantityOfStock, Integer productId) throws SQLException {
+        String query = "UPDATE products SET quantity_of_stock=? WHERE product_id=?";
+        try (Connection conn = databaseConnection.getConnection();
+             PreparedStatement statement = conn.prepareStatement(query)) {
+            statement.setDouble(1, productFinalQuantityOfStock);
+            statement.setInt(2, productId);
+
+            int rowsUpdated = statement.executeUpdate();
+            if (rowsUpdated > 0) {
+
+                System.out.println("Product quantity_of_stock updated successfully.");
+            } else {
+                System.err.println("Failed to update product quantity_of_stock.");
+            }
+        }
+    }
 }
 
