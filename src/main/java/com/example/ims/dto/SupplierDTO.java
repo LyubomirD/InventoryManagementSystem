@@ -46,7 +46,7 @@ public class SupplierDTO {
              PreparedStatement statement = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
             statement.setString(1, newSupplier.getName());
             statement.setString(2, newSupplier.getContact_inf());
-            statement.setDouble(3, newSupplier.getProduct_id());
+            statement.setInt(3, newSupplier.getProduct_id());
 
             int rowsInserted = statement.executeUpdate();
             if (rowsInserted <= 0) {

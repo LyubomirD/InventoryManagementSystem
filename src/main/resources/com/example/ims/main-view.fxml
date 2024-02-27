@@ -15,10 +15,8 @@
                         prefHeight="25.0" prefWidth="94.0" text="Product" textAlignment="CENTER"/>
                 <Button alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" onAction="#loadSupplierScene"
                         text="Supplier" textAlignment="CENTER"/>
-                <Button alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" onAction="#loadOrderItemScene"
-                        prefHeight="25.0" text="Order Item" textAlignment="CENTER"/>
-                <Button alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" onAction="#loadOrderMadeScene"
-                        text="Order Made" textAlignment="CENTER"/>
+                <Button alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" onAction="#loadOrderScene"
+                        prefHeight="25.0" text="Order" textAlignment="CENTER"/>
             </children>
             <padding>
                 <Insets left="10.0" right="10.0"/>

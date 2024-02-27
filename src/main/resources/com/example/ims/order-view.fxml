@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ims.scene.OrderView">
+    <children>
+        <VBox alignment="CENTER" prefHeight="607.0" prefWidth="585.0" spacing="10">
+            <VBox>
+                <HBox>
+                    <Label text="Quantity: " />
+                    <TextField fx:id="orderQuantity" alignment="CENTER_RIGHT" />
+                </HBox>
+                <HBox>
+                    <Label text="Product Id: " />
+                    <TextField fx:id="orderProductId" alignment="CENTER_RIGHT" />
+
+                    <Label fx:id="orderErrorMessageLabel" textFill="red" visible="false" />
+                </HBox>
+                <Button fx:id="orderClear" mnemonicParsing="false" text="Clear" />
+            </VBox>
+
+            <HBox alignment="CENTER">
+                <ButtonBar>
+                    <buttons>
+                        <Button fx:id="orderAdd" mnemonicParsing="false" text="Add" />
+                        <Button fx:id="orderUpdate" mnemonicParsing="false" text="Update" />
+                        <Button fx:id="orderDelete" mnemonicParsing="false" text="Delete" />
+                    </buttons>
+                </ButtonBar>
+            </HBox>
+
+            <HBox alignment="CENTER">
+                <HBox>
+                    <Label text="Search: " />
+                    <TextField fx:id="orderSearchField" />
+                </HBox>
+            </HBox>
+
+            <ScrollPane prefHeight="402.0" prefWidth="465.0" vbarPolicy="ALWAYS">
+                <TableView fx:id="orderTableView" prefHeight="400.0" prefWidth="585.0">
+                    <columns>
+                        <TableColumn fx:id="orderColumnId" prefWidth="100.0" text="Order_Item_ID" />
+                        <TableColumn fx:id="orderColumnProductId" prefWidth="90.0" text="Product_ID" />
+                        <TableColumn fx:id="orderColumnQuantity" prefWidth="90.0" text="Quantity" />
+                        <TableColumn fx:id="orderColumnTotalPrice" prefWidth="90.0" text="Total_Price" />
+                    </columns>
+                </TableView>
+            </ScrollPane>
+
+        </VBox>
+    </children>
+</AnchorPane>
+

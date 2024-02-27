@@ -1,13 +1,9 @@
 package com.example.ims.scene;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
 
 import java.io.IOException;
 import java.util.Objects;
@@ -39,12 +35,7 @@ public class MainView {
     }
 
     @FXML
-    private void loadOrderItemScene() {
-        loadScene("/com/example/ims/order-item-view.fxml");
-    }
-
-    @FXML
-    public void loadOrderMadeScene() {
-        loadScene("/com/example/ims/order-made-view.fxml");
+    public void loadOrderScene() {
+        loadScene("/com/example/ims/order-view.fxml");
     }
 }
