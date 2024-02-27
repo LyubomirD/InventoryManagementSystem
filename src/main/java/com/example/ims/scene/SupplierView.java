@@ -151,10 +151,10 @@ public class SupplierView implements Initializable {
             return;
         }
 
-        int productIdentificationNumber = selectedSupplier.getProduct_id();
+        int supplierIdentificationNumber = selectedSupplier.getSupplier_id();
 
         try {
-            supplierDTO.deleteSupplier(productIdentificationNumber);
+            supplierDTO.deleteSupplier(supplierIdentificationNumber);
             supplierList.remove(selectedSupplier);
             System.out.println("Supplier deleted successfully.");
         } catch (SQLException e) {

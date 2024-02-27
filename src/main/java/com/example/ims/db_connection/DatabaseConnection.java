@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 public class DatabaseConnection {
 
-    public Connection databaseLink;
+    public Connection connection;
 
     private static final String databaseUsername = "lubodimoff";
     private static final String databasePassword = "";
@@ -16,14 +16,13 @@ public class DatabaseConnection {
     public Connection getConnection() {
         try {
             Class.forName("org.postgresql.Driver");
-            databaseLink = DriverManager.getConnection(databaseURL, databaseUsername, databasePassword);
-
+            connection = DriverManager.getConnection(databaseURL, databaseUsername, databasePassword);
         } catch (SQLException e) {
             e.getStackTrace();
         } catch (ClassNotFoundException e) {
             throw new RuntimeException("PostgreSQL JDBC Driver not found", e);
         }
 
-        return databaseLink;
+        return connection;
     }
 }

@@ -112,12 +112,12 @@ public class SupplierDTO {
         }
     }
 
-    public void deleteSupplier(int productIdentificationNumber) throws SQLException {
+    public void deleteSupplier(int supplierIdentificationNumber) throws SQLException {
         String query = "DELETE FROM supplier WHERE supplier_id=?";
 
         try (Connection conn = databaseConnection.getConnection();
              PreparedStatement statement = conn.prepareStatement(query)) {
-            statement.setInt(1, productIdentificationNumber);
+            statement.setInt(1, supplierIdentificationNumber);
 
             int rowsUpdated = statement.executeUpdate();
             if (rowsUpdated > 0) {

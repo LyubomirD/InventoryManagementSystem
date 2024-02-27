@@ -77,7 +77,7 @@ public class OrderDTO {
         }
     }
 
-    public Double getProductQuantityOfStock(Integer productId) throws SQLException{
+    public Double getProductQuantityOfStock(Integer productId) throws SQLException {
         String query = "SELECT quantity_of_stock FROM products WHERE product_id = ?";
         try (Connection conn = databaseConnection.getConnection();
              PreparedStatement statement = conn.prepareStatement(query)) {
@@ -143,12 +143,11 @@ public class OrderDTO {
     }
 
     public void deleteOrder(int orderIdentificationNumber) throws SQLException {
-        String query = "DELETE FROM orders WHERE order_id=?";
+        String deleteQuery = "DELETE FROM orders WHERE order_id=?";
         try (Connection conn = databaseConnection.getConnection();
-             PreparedStatement statement = conn.prepareStatement(query)) {
-            statement.setInt(1, orderIdentificationNumber);
-
-            int rowsDeleted = statement.executeUpdate();
+             PreparedStatement deleteStatement = conn.prepareStatement(deleteQuery)) {
+            deleteStatement.setInt(1, orderIdentificationNumber);
+            int rowsDeleted = deleteStatement.executeUpdate();
             if (rowsDeleted > 0) {
                 System.out.println("Order deleted successfully.");
             } else {
@@ -156,4 +155,6 @@ public class OrderDTO {
             }
         }
     }
+
 }
+

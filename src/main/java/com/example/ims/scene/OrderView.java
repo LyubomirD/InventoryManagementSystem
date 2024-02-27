@@ -170,10 +170,10 @@ public class OrderView implements Initializable {
             return;
         }
 
-        int productIdentificationNumber = selectedOrder.getProduct_id();
+        int orderIdentificationNumber = selectedOrder.getOrder_id();
 
         try {
-            orderDTO.deleteOrder(productIdentificationNumber);
+            orderDTO.deleteOrder(orderIdentificationNumber);
             orderList.remove(selectedOrder);
             System.out.println("Order deleted successfully.");
         } catch (SQLException e) {
