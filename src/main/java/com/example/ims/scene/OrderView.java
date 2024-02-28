@@ -104,9 +104,8 @@ public class OrderView implements Initializable {
         }
     }
 
-    private void calculateQuantityOfTheStockQuantityNewEntry(Integer productId, Integer orderId) {
+    private void calculateOrderQuantityAndStockQuantity(Double previousQuantity, Double newQuantity, Integer productId) {
         try {
-            Double newQuantity = Double.valueOf(orderQuantity.getText());
             Double productQuantityOfStock = orderDTO.getProductQuantityOfStock(productId);
 
             if (productQuantityOfStock == null) {
@@ -114,39 +113,16 @@ public class OrderView implements Initializable {
                 orderErrorMessageLabel.setVisible(true);
                 return;
             }
-
-
-            double productFinalQuantityOfStock = productQuantityOfStock - newQuantity;
-
-            orderDTO.updateProductQuantityInStock(productFinalQuantityOfStock, productId);
-        } catch (SQLException e) {
-            System.err.println("Error calculating total price: " + e.getMessage());
-        }
-    }
-
-    private void calculateQuantityOfTheStockQuantityUpdatedEntry(Double previousQuantity, Double newQuantity, Integer productId, Integer orderId) {
-        try {
-
-            Double productQuantityOfStock = orderDTO.getProductQuantityOfStock(productId);
-
-            if (productQuantityOfStock == null) {
-                orderErrorMessageLabel.setText("Product with ID " + productId + " not found.");
-                orderErrorMessageLabel.setVisible(true);
-                return;
-            }
-
-            System.out.println("NewQuantity" + newQuantity);
-            System.out.println("PreviousQuantity" + previousQuantity);
 
             double difference = newQuantity - previousQuantity;
             double productFinalQuantityOfStock = productQuantityOfStock - difference;
 
             orderDTO.updateProductQuantityInStock(productFinalQuantityOfStock, productId);
         } catch (SQLException e) {
-            System.err.println("Error calculating total price: " + e.getMessage());
+            System.err.println("Error calculating total quantity: " + e.getMessage());
         }
-    }
 
+    }
 
     private void handleButtonClickAdd(ActionEvent event) {
         System.out.println("Add Button is clicked");
@@ -165,8 +141,7 @@ public class OrderView implements Initializable {
                 orderList.add(newOrder);
                 orderTableView.setItems(orderList);
 
-                calculateQuantityOfTheStockQuantityNewEntry(productId, newOrder.getOrder_id());
-
+                calculateOrderQuantityAndStockQuantity(0.0, quantityOrder, productId);
                 System.out.println("Order added to database successfully.");
             } else {
                 orderErrorMessageLabel.setText("Product with ID " + productId + " not found.");
@@ -200,8 +175,7 @@ public class OrderView implements Initializable {
             int selectedIndex = orderTableView.getSelectionModel().getSelectedIndex();
             orderList.set(selectedIndex, updatedOrder);
 
-            calculateQuantityOfTheStockQuantityUpdatedEntry(orderPreviousQuantity, newQuantityOrder, productId, updatedOrder.getOrder_id());
-
+            calculateOrderQuantityAndStockQuantity(orderPreviousQuantity, newQuantityOrder, productId);
         } catch (SQLException e) {
             System.err.println("Error updating order: " + e.getMessage());
         }
@@ -224,7 +198,7 @@ public class OrderView implements Initializable {
         try {
             orderDTO.deleteOrder(orderIdentificationNumber);
             orderList.remove(selectedOrder);
-            calculateQuantityOfTheStockQuantityUpdatedEntry(orderPreviousQuantity, 0.0, productId, orderIdentificationNumber);
+            calculateOrderQuantityAndStockQuantity(orderPreviousQuantity, 0.0, productId);
             System.out.println("Order deleted successfully.");
         } catch (SQLException e) {
             System.err.println("Error deleting order: " + e.getMessage());
