@@ -86,6 +86,9 @@ public class OrderView implements Initializable {
         loadDataFromDatabase();
     }
 
+    //Price of order would not change when a product price is updated because the order has already been done
+    //The order could have taken place when the product was in a discount
+
     private Double calculateTotalPrice(Double newQuantity, Integer productId) {
         try {
             Double productQuantityOfStock = orderDTO.getProductQuantityOfStock(productId);

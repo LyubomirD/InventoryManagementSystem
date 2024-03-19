@@ -47,9 +47,9 @@
                 <TableView fx:id="productTableView" prefHeight="400.0" prefWidth="585.0">
                     <columns>
                         <TableColumn fx:id="productColumnId" prefWidth="75.0" text="Product_ID" />
-                        <TableColumn fx:id="productColumnName" prefWidth="112.0" text="Name" />
-                        <TableColumn fx:id="productColumnDesc" prefWidth="175.0" text="Short_Desc" />
-                        <TableColumn fx:id="productColumnQuantity" prefWidth="125.0" text="Quantity_Of_Stock" />
+                        <TableColumn fx:id="productColumnName" prefWidth="89.0" text="Name" />
+                        <TableColumn fx:id="productColumnDesc" prefWidth="205.0" text="Short_Desc" />
+                        <TableColumn fx:id="productColumnQuantity" prefWidth="118.0" text="Quantity_Of_Stock" />
                         <TableColumn fx:id="productColumnPrice" minWidth="0.0" prefWidth="81.0" text="Price" />
                     </columns>
                 </TableView>
