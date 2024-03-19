@@ -104,24 +104,31 @@ public class OrderView implements Initializable {
         }
     }
 
-    private void calculateOrderQuantityAndStockQuantity(Double previousQuantity, Double newQuantity, Integer productId) {
+    private boolean calculateOrderQuantityAndStockQuantity(Double previousQuantity, Double newQuantity, Integer productId) {
         try {
             Double productQuantityOfStock = orderDTO.getProductQuantityOfStock(productId);
 
             if (productQuantityOfStock == null) {
                 orderErrorMessageLabel.setText("Product with ID " + productId + " not found.");
                 orderErrorMessageLabel.setVisible(true);
-                return;
+                return false;
             }
 
             double difference = newQuantity - previousQuantity;
             double productFinalQuantityOfStock = productQuantityOfStock - difference;
 
+            if (productFinalQuantityOfStock < 0) {
+                orderErrorMessageLabel.setText("Product with ID " + productId + " quantity in stock is less than the wanted amount.");
+                orderErrorMessageLabel.setVisible(true);
+                return false;
+            }
+
             orderDTO.updateProductQuantityInStock(productFinalQuantityOfStock, productId);
+            return true;
         } catch (SQLException e) {
             System.err.println("Error calculating total quantity: " + e.getMessage());
         }
-
+        return false;
     }
 
     private void handleButtonClickAdd(ActionEvent event) {
@@ -131,17 +138,23 @@ public class OrderView implements Initializable {
         Double quantityOrder = Double.parseDouble(orderQuantity.getText());
         Double totalPriceOfOrder = calculateTotalPrice(quantityOrder, productId);
 
+        boolean isOrderPossibleWithExistingProductQuantity = calculateOrderQuantityAndStockQuantity(0.0, quantityOrder, productId);
+
+        if (!isOrderPossibleWithExistingProductQuantity) {
+            return;
+        }
+
         Order newOrder = new Order(productId, quantityOrder, totalPriceOfOrder);
 
         try {
             if (orderDTO.productExists(productId)) {
+
                 orderErrorMessageLabel.setVisible(false);
 
                 orderDTO.addOrder(newOrder);
                 orderList.add(newOrder);
                 orderTableView.setItems(orderList);
 
-                calculateOrderQuantityAndStockQuantity(0.0, quantityOrder, productId);
                 System.out.println("Order added to database successfully.");
             } else {
                 orderErrorMessageLabel.setText("Product with ID " + productId + " not found.");
