@@ -40,10 +40,10 @@
             <ScrollPane prefHeight="402.0" prefWidth="465.0" vbarPolicy="ALWAYS">
                 <TableView fx:id="orderTableView" prefHeight="400.0" prefWidth="585.0">
                     <columns>
-                        <TableColumn fx:id="orderColumnId" prefWidth="100.0" text="Order_Item_ID" />
-                        <TableColumn fx:id="orderColumnProductId" prefWidth="90.0" text="Product_ID" />
-                        <TableColumn fx:id="orderColumnQuantity" prefWidth="90.0" text="Quantity" />
-                        <TableColumn fx:id="orderColumnTotalPrice" prefWidth="90.0" text="Total_Price" />
+                        <TableColumn fx:id="orderColumnId" prefWidth="115.0" text="Order_Item_ID" />
+                        <TableColumn fx:id="orderColumnProductId" prefWidth="106.0" text="Product_ID" />
+                        <TableColumn fx:id="orderColumnQuantity" prefWidth="100.0" text="Quantity" />
+                        <TableColumn fx:id="orderColumnTotalPrice" prefWidth="119.0" text="Total_Price" />
                     </columns>
                 </TableView>
             </ScrollPane>
@@ -51,4 +51,3 @@
         </VBox>
     </children>
 </AnchorPane>
-

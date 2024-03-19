@@ -5,7 +5,7 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ims.scene.ProductView">
     <children>
-        <VBox alignment="CENTER" prefHeight="607.0" prefWidth="585.0" spacing="10">
+        <VBox alignment="CENTER" prefHeight="607.0" prefWidth="600.0" spacing="5">
             <VBox>
                 <HBox>
                     <Label text="Product name: " />
@@ -46,11 +46,11 @@
             <ScrollPane prefHeight="402.0" prefWidth="465.0" vbarPolicy="ALWAYS">
                 <TableView fx:id="productTableView" prefHeight="400.0" prefWidth="585.0">
                     <columns>
-                        <TableColumn fx:id="productColumnId" prefWidth="60.0" text="Product_ID" />
-                        <TableColumn fx:id="productColumnName" prefWidth="120.0" text="Name" />
-                        <TableColumn fx:id="productColumnDesc" prefWidth="150.0" text="Short_Desc" />
-                        <TableColumn fx:id="productColumnQuantity" prefWidth="60.0" text="Quantity_Of_Stock" />
-                        <TableColumn fx:id="productColumnPrice" prefWidth="60.0" text="Price" />
+                        <TableColumn fx:id="productColumnId" prefWidth="75.0" text="Product_ID" />
+                        <TableColumn fx:id="productColumnName" prefWidth="112.0" text="Name" />
+                        <TableColumn fx:id="productColumnDesc" prefWidth="175.0" text="Short_Desc" />
+                        <TableColumn fx:id="productColumnQuantity" prefWidth="125.0" text="Quantity_Of_Stock" />
+                        <TableColumn fx:id="productColumnPrice" minWidth="0.0" prefWidth="81.0" text="Price" />
                     </columns>
                 </TableView>
             </ScrollPane>

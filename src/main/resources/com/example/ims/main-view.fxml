@@ -4,22 +4,18 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ims.scene.MainView">
+<BorderPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ims.scene.MainView">
 
     <top>
         <!-- Button bar -->
-        <HBox alignment="CENTER" prefHeight="50.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+        <HBox alignment="CENTER" prefHeight="50.0" prefWidth="610.0" BorderPane.alignment="CENTER">
             <children>
-                <Button alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" onAction="#loadProductScene"
-                        prefHeight="25.0" prefWidth="94.0" text="Product" textAlignment="CENTER"/>
-                <Button alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" onAction="#loadSupplierScene"
-                        text="Supplier" textAlignment="CENTER"/>
-                <Button alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" onAction="#loadOrderScene"
-                        prefHeight="25.0" text="Order" textAlignment="CENTER"/>
+                <Button alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" onAction="#loadProductScene" prefHeight="25.0" prefWidth="94.0" text="Product" textAlignment="CENTER" />
+                <Button alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" onAction="#loadSupplierScene" text="Supplier" textAlignment="CENTER" />
+                <Button alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" onAction="#loadOrderScene" prefHeight="25.0" text="Order" textAlignment="CENTER" />
             </children>
             <padding>
-                <Insets left="10.0" right="10.0"/>
+                <Insets left="10.0" right="10.0" />
             </padding>
         </HBox>
     </top>
@@ -29,8 +25,8 @@
             <!-- Dynamically loaded scenes -->
             <!-- Also, main-view view-->
             <VBox alignment="CENTER" style="-fx-background-color: lightblue;">
-                <Label text="Welcome" style="-fx-font-size: 24; -fx-font-weight: bold;" />
-                <Label text="Description of what the application does" style="-fx-font-size: 14" alignment="CENTER" />
+                <Label style="-fx-font-size: 24; -fx-font-weight: bold;" text="Welcome" />
+                <Label alignment="CENTER" style="-fx-font-size: 14" text="Description of what the application does" />
             </VBox>
         </StackPane>
     </center>

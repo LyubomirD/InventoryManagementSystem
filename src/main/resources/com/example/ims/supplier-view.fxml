@@ -45,10 +45,10 @@
                 <content>
                     <TableView fx:id="supplierTableView" prefHeight="400.0" prefWidth="586.0" style="-fx-padding: 0;">
                         <columns>
-                            <TableColumn fx:id="supplierColumnId" prefWidth="60.0" text="Supplier_ID" />
-                            <TableColumn fx:id="supplierColumnName" prefWidth="100.0" text="Name" />
-                            <TableColumn fx:id="supplierColumnConfInf" prefWidth="150.0" text="Contact Inf." />
-                            <TableColumn fx:id="supplierColumnProductId" prefWidth="60.0" text="Product_ID" />
+                            <TableColumn fx:id="supplierColumnId" prefWidth="98.0" text="Supplier_ID" />
+                            <TableColumn fx:id="supplierColumnName" prefWidth="150.0" text="Name" />
+                            <TableColumn fx:id="supplierColumnConfInf" prefWidth="162.0" text="Contact Inf." />
+                            <TableColumn fx:id="supplierColumnProductId" prefWidth="117.0" text="Product_ID" />
                         </columns>
                     </TableView>
                 </content>
